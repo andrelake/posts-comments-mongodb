@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.andrelake.postscommentsmongodb.domain.User;
+import com.andrelake.postscommentsmongodb.dto.UserDTO;
 import com.andrelake.postscommentsmongodb.repository.UserRepository;
 import com.andrelake.postscommentsmongodb.services.exception.ObjectNotFoundException;
 
@@ -26,5 +27,15 @@ public class UserService {
 				.orElseThrow(() -> new ObjectNotFoundException("Object not found"));
 
 		return user;
+	}
+	
+	public User insert(User user) {
+		
+		return userRepository.insert(user);
+	}
+	
+	public User fromDTO(UserDTO userDTO) {
+		
+		return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
 	}
 }
