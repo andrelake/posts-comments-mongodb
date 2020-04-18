@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,5 +28,13 @@ public class UserResource {
 		List<UserDTO> listDto = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());  //stream p/ list poder receber lambda
 																									//map funcionando como um foreach
 		return ResponseEntity.ok(listDto);															//Collectors.toList para voltar a ser list
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<UserDTO> findById(@PathVariable String id) {
+		
+		User obj = userService.findById(id);
+		
+		return ResponseEntity.ok(new UserDTO(obj));
 	}
 }
