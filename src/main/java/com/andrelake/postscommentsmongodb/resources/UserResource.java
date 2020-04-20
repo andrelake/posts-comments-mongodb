@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.andrelake.postscommentsmongodb.domain.Post;
 import com.andrelake.postscommentsmongodb.domain.User;
 import com.andrelake.postscommentsmongodb.dto.UserDTO;
 import com.andrelake.postscommentsmongodb.services.UserService;
@@ -67,5 +68,13 @@ public class UserResource {
 		user = userService.update(user);
 		
 		return ResponseEntity.ok(user);
+	}
+	
+	@GetMapping("/{id}/posts")
+	public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+		
+		User obj = userService.findById(id);
+		
+		return ResponseEntity.ok(obj.getPosts());
 	}
 }
